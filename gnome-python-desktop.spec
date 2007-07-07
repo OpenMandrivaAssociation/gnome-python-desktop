@@ -5,11 +5,9 @@
 
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
-Version: 2.18.0
-Release: %mkrel 2
+Version: 2.19.1
+Release: %mkrel 1
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
-# From FreeBSD ports: fixes build against metacity 2.19 - AdamW 2007/06
-Patch0:	gnome-python-desktop-2.18.0-metacity.patch
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
 License: LGPL
 Group: Development/GNOME and GTK+
@@ -119,7 +117,6 @@ gnomeprintui via python.
 
 %prep
 %setup -q
-%patch0 -p0 -b .metacity
 
 %build
 %configure2_5x --enable-metacity
