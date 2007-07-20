@@ -16,7 +16,7 @@ BuildRequires: pygtk2.0-devel >= %pygtk
 BuildRequires: gnome-python >= %gnomepython
 BuildRequires: python-devel >= 2.2
 BuildRequires: libgnomeui2-devel >= 2.0.0
-BuildRequires: libgtksourceview-1.0-devel >= 1.1.0
+BuildRequires: libgtksourceview1.0-devel >= 1.1.0
 BuildRequires: libpanel-applet-devel >= 2.13
 BuildRequires: libwnck-devel >= 2.15.5
 BuildRequires: librsvg-devel
