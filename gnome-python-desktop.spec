@@ -22,6 +22,7 @@ BuildRequires: libwnck-devel >= 2.15.5
 BuildRequires: librsvg-devel
 BuildRequires: gnome-keyring-devel >= 0.5.0
 BuildRequires: gnome-desktop-devel
+BuildRequires: libgcrypt-devel
 BuildRequires: bug-buddy
 Requires: gnome-python >= %gnomepython
 Conflicts: gnome-python-extras < 2.13.3
