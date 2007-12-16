@@ -5,19 +5,20 @@
 
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
-Version: 2.20.0
-Release: %mkrel 2
+Version: 2.21.1
+Release: %mkrel 1
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
 License: LGPL
 Group: Development/GNOME and GTK+
 BuildRoot: %{_tmppath}/%name-root
 BuildRequires: pygtk2.0-devel >= %pygtk
-BuildRequires: gnome-python >= %gnomepython
+BuildRequires: gnome-python-devel >= %gnomepython
 BuildRequires: python-devel >= 2.2
 BuildRequires: libgnomeui2-devel >= 2.0.0
 BuildRequires: gtksourceview1-devel >= 1.1.0
 BuildRequires: libpanel-applet-devel >= 2.13
+BuildRequires: evolution-data-server-devel
 BuildRequires: libwnck-devel >= 2.15.5
 BuildRequires: librsvg-devel
 BuildRequires: gnome-keyring-devel >= 0.5.0
@@ -40,6 +41,16 @@ Requires: %name = %version
 
 %description -n %oname-applet
 This module contains a wrapper that allows GNOME Panel applets to be
+written in Python.
+
+%package -n %oname-evolution
+Version: %{version}
+Summary: Python bindings for Evolution
+Group: Development/GNOME and GTK+
+Requires: %name = %version
+
+%description -n %oname-evolution
+This module contains a wrapper that allows Evolution extensions to be
 written in Python.
 
 
@@ -154,6 +165,10 @@ rm -rf %buildroot
 %py_platsitedir/gtk-2.0/gnomeapplet.so
 %py_platsitedir/gtk-2.0/gnomedesktop/
 %doc examples/applet/
+
+%files -n %oname-evolution
+%defattr(755,root,root,755)
+%py_platsitedir/gtk-2.0/evolution
 
 %files -n %oname-gtksourceview
 %defattr(755,root,root,755)
