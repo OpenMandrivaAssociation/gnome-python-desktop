@@ -11,7 +11,6 @@ Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
 License: LGPL
 Group: Development/GNOME and GTK+
-BuildRoot: %{_tmppath}/%name-root
 BuildRequires: pygtk2.0-devel >= %pygtk
 BuildRequires: gnome-python-devel >= %gnomepython
 BuildRequires: python-devel >= 2.2
