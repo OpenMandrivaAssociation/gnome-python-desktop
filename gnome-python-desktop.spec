@@ -5,11 +5,11 @@
 
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
-Version: 2.22.0
-Release: %mkrel 2
+Version: 2.23.0
+Release: %mkrel 1
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
-License: LGPL
+License: LGPLv2+ and GPLv2+
 Group: Development/GNOME and GTK+
 BuildRoot: %{_tmppath}/%name-root
 BuildRequires: pygtk2.0-devel >= %pygtk
