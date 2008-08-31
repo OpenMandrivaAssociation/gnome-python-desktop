@@ -5,7 +5,7 @@
 
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
-Version: 2.23.0
+Version: 2.23.1
 Release: %mkrel 1
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
