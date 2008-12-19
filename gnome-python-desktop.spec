@@ -8,6 +8,9 @@ Name: gnome-python-desktop
 Version: 2.24.1
 Release: %mkrel 1
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
+#gw on gnome 2.25, libpanelapplet doesn't depend on libgnomeui anymore,
+#but the python binding still needs it
+Patch: gnome-python-desktop-2.24.1-libgnomeui.patch
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
 License: LGPLv2+ and GPLv2+
 Group: Development/GNOME and GTK+
@@ -130,6 +133,8 @@ gnomeprintui via python.
 
 %prep
 %setup -q
+%patch -p1
+autoreconf
 
 %build
 %configure2_5x --enable-metacity
