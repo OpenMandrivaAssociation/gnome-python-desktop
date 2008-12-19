@@ -17,6 +17,7 @@ Group: Development/GNOME and GTK+
 BuildRoot: %{_tmppath}/%name-root
 BuildRequires: pygtk2.0-devel >= %pygtk
 BuildRequires: gnome-python-devel >= %gnomepython
+BuildRequires: gnome-python-gconf >= %gnomepython
 BuildRequires: python-devel >= 2.2
 BuildRequires: libgnomeui2-devel >= 2.0.0
 BuildRequires: gtksourceview1-devel >= 1.1.0
@@ -103,6 +104,7 @@ Version: %{version}
 Summary: Python bindings for the GNOME media profiles
 Group: Development/GNOME and GTK+
 Requires: %name = %version
+Requires: gnome-python-gconf >= %gnomepython
 BuildRequires: libcddb-slave2-devel
 
 %description -n %oname-mediaprofiles
