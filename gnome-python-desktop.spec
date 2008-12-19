@@ -5,8 +5,8 @@
 
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
-Version: 2.24.0
-Release: %mkrel 2
+Version: 2.24.1
+Release: %mkrel 1
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
 License: LGPLv2+ and GPLv2+
@@ -25,6 +25,7 @@ BuildRequires: gnome-keyring-devel >= 0.5.0
 BuildRequires: gnome-desktop-devel
 BuildRequires: libgcrypt-devel
 BuildRequires: bug-buddy
+BuildRequires: x11-server-xvfb
 Requires: gnome-python >= %gnomepython
 Conflicts: gnome-python-extras < 2.13.3
 
@@ -136,7 +137,7 @@ gnomeprintui via python.
 %make
 
 %check
-make check
+xvfb-run make check
 
 %install
 rm -rf $RPM_BUILD_ROOT
