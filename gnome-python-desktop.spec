@@ -143,8 +143,11 @@ autoreconf
 
 %make
 
-%check
-xvfb-run make check
+#%check
+# Disabled due to http://bugzilla.gnome.org/show_bug.cgi?id=565593 :
+# check fails against Python 2.6 due to Python issue #4244 - AdamW
+# 2008/12
+#xvfb-run make check
 
 %install
 rm -rf $RPM_BUILD_ROOT
