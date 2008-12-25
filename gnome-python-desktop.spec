@@ -6,7 +6,7 @@
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
 Version: 2.24.1
-Release: %mkrel 1
+Release: %mkrel 2
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 #gw on gnome 2.25, libpanelapplet doesn't depend on libgnomeui anymore,
 #but the python binding still needs it
