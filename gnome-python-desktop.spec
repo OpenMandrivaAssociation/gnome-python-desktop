@@ -1,16 +1,14 @@
 %define buildgnomeprint 1
-%define pygtk 2.4.0
+%define pygtk 2.10.3
 %define gnomepython 2.10.0
 %define oname gnome-python
 
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
-Version: 2.24.1
-Release: %mkrel 2
+Version: 2.25.1
+Release: %mkrel 1
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
-#gw on gnome 2.25, libpanelapplet doesn't depend on libgnomeui anymore,
-#but the python binding still needs it
-Patch: gnome-python-desktop-2.24.1-libgnomeui.patch
+Patch0: gnome-python-desktop-2.25.1-fix-linkage.patch
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
 License: LGPLv2+ and GPLv2+
 Group: Development/GNOME and GTK+
@@ -20,10 +18,10 @@ BuildRequires: gnome-python-devel >= %gnomepython
 BuildRequires: gnome-python-gconf >= %gnomepython
 BuildRequires: python-devel >= 2.2
 BuildRequires: libgnomeui2-devel >= 2.0.0
-BuildRequires: gtksourceview1-devel >= 1.1.0
-BuildRequires: libpanel-applet-devel >= 2.13
+BuildRequires: gtksourceview1-devel >= 1.1.90
+BuildRequires: libpanel-applet-devel >= 2.13.4
 BuildRequires: evolution-data-server-devel
-BuildRequires: libwnck-devel >= 2.15.5
+BuildRequires: libwnck-devel >= 2.19.3
 BuildRequires: librsvg-devel
 BuildRequires: gnome-keyring-devel >= 0.5.0
 BuildRequires: gnome-desktop-devel
@@ -135,12 +133,11 @@ gnomeprintui via python.
 
 %prep
 %setup -q
-%patch -p1
-autoreconf
+%patch0 -p0
 
 %build
+autoreconf
 %configure2_5x --enable-metacity
-
 %make
 
 #%check
@@ -151,7 +148,7 @@ autoreconf
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%makeinstall
+%makeinstall_std
 find $RPM_BUILD_ROOT -name '*.la' -exec rm {} \;
 
 %clean
