@@ -1,11 +1,12 @@
 %define buildgnomeprint 1
+%define build_evince 0
 %define pygtk 2.10.3
 %define gnomepython 2.10.0
 %define oname gnome-python
 
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
-Version: 2.25.1
+Version: 2.25.90
 Release: %mkrel 1
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 Patch0: gnome-python-desktop-2.25.1-fix-linkage.patch
@@ -131,12 +132,25 @@ This module contains a wrapper that allows the use of gnomeprint and
 gnomeprintui via python.
 %endif
 
+%if %build_evince
+%package -n %oname-evince
+Version: %{version}
+Summary: Python bindings for the Evince document viewer
+Group: Development/GNOME and GTK+
+Requires: %name = %version
+BuildRequires: libevince-devel > 2.25.5
+
+%description -n %oname-evince
+This module contains a wrapper that makes the Evince document viewer library
+available from Python.
+%endif
+
 %prep
 %setup -q
 %patch0 -p0
+autoreconf -fi
 
 %build
-autoreconf
 %configure2_5x --enable-metacity
 %make
 
@@ -157,7 +171,7 @@ rm -rf %buildroot
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog
-%doc examples/rsvg examples/keyring*
+%doc examples/rsvg examples/keyring* examples/wnck*
 %defattr(755,root,root,755)
 %dir %{_datadir}/pygtk/2.0/defs
 %{_datadir}/pygtk/2.0/defs/*.defs
@@ -214,4 +228,8 @@ rm -rf %buildroot
 %_datadir/gtk-doc/html/pygnomeprint*
 %endif
 
-
+%if %build_evince
+%files -n %oname-evince
+%defattr(755,root,root,755)
+%py_platsitedir/gtk-2.0/evince
+%endif
