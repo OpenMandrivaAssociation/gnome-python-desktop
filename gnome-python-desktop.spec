@@ -1,5 +1,5 @@
 %define buildgnomeprint 1
-%define build_evince 0
+%define build_evince 1
 %define pygtk 2.10.3
 %define gnomepython 2.10.0
 %define oname gnome-python
@@ -7,7 +7,7 @@
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
 Version: 2.25.90
-Release: %mkrel 1
+Release: %mkrel 2
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 Patch0: gnome-python-desktop-2.25.1-fix-linkage.patch
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
@@ -138,7 +138,7 @@ Version: %{version}
 Summary: Python bindings for the Evince document viewer
 Group: Development/GNOME and GTK+
 Requires: %name = %version
-BuildRequires: libevince-devel > 2.25.5
+BuildRequires: libevince-devel >= 2.25.90
 
 %description -n %oname-evince
 This module contains a wrapper that makes the Evince document viewer library
@@ -213,12 +213,12 @@ rm -rf %buildroot
 
 %files -n %oname-mediaprofiles
 %defattr(755,root,root,755)
-%_libdir/python%pyver/site-packages/gtk-2.0/mediaprofiles.so
+%py_platsitedir/gtk-2.0/mediaprofiles.so
 %doc examples/mediaprofiles
 
 %files -n %oname-metacity
 %defattr(755,root,root,755)
-%_libdir/python%pyver/site-packages/gtk-2.0/metacity.so
+%py_platsitedir/gtk-2.0/metacity.so
 
 %if %{buildgnomeprint}
 %files -n %oname-gnomeprint
@@ -231,5 +231,5 @@ rm -rf %buildroot
 %if %build_evince
 %files -n %oname-evince
 %defattr(755,root,root,755)
-%py_platsitedir/gtk-2.0/evince
+%py_platsitedir/gtk-2.0/evince.so
 %endif
