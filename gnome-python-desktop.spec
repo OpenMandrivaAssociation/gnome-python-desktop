@@ -138,6 +138,7 @@ Version: %{version}
 Summary: Python bindings for the Evince document viewer
 Group: Development/GNOME and GTK+
 Requires: %name = %version
+Obsoletes: python-evince
 BuildRequires: libevince-devel >= 2.25.90
 
 %description -n %oname-evince
