@@ -1,5 +1,10 @@
 %define buildgnomeprint 1
 %define build_evince 1
+%define build_nautilusburn 0
+%if %mdvver <= 200900
+%define build_nautilusburn 1
+%endif
+
 %define pygtk 2.10.3
 %define gnomepython 2.10.0
 %define oname gnome-python
@@ -7,7 +12,7 @@
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
 Version: 2.25.91
-Release: %mkrel 1
+Release: %mkrel 2
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 Patch0: gnome-python-desktop-2.25.1-fix-linkage.patch
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
@@ -77,6 +82,7 @@ BuildRequires: libgtop2.0-devel >= 2.13
 %description -n %oname-gtop
 This module contains a wrapper that makes Gtop available from Python.
 
+%if %build_nautilusburn
 %package -n %oname-nautilus-burn
 Version: %{version}
 Summary: Python bindings for Nautilus-burn
@@ -86,6 +92,7 @@ BuildRequires: libnautilus-burn-devel >= 2.15.3
 
 %description -n %oname-nautilus-burn
 This module contains a wrapper that makes Nautilus-burn available from Python.
+%endif
 
 %package -n %oname-totem
 Version: %{version}
@@ -203,10 +210,12 @@ rm -rf %buildroot
 %defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/gtop.so
 
+%if %build_nautilusburn
 %files -n %oname-nautilus-burn
 %defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/nautilusburn.so
 %doc examples/nautilusburn
+%endif
 
 %files -n %oname-totem
 %defattr(755,root,root,755)
