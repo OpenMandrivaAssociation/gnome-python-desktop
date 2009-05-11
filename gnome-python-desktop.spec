@@ -1,8 +1,11 @@
 %define buildgnomeprint 1
 %define build_evince 1
 %define build_nautilusburn 0
+%define build_brasero 0
 %if %mdvver <= 200900
 %define build_nautilusburn 1
+%else
+%define build_brasero 1
 %endif
 
 %define pygtk 2.10.3
@@ -11,7 +14,7 @@
 
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
-Version: 2.26.0
+Version: 2.27.1
 Release: %mkrel 1
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 Patch0: gnome-python-desktop-2.25.1-fix-linkage.patch
@@ -92,6 +95,18 @@ BuildRequires: libnautilus-burn-devel >= 2.15.3
 
 %description -n %oname-nautilus-burn
 This module contains a wrapper that makes Nautilus-burn available from Python.
+%endif
+
+%if %build_brasero
+%package -n %oname-brasero
+Version: %{version}
+Summary: Python bindings for Brasero
+Group: Development/GNOME and GTK+
+Requires: %name = %version
+BuildRequires: brasero-devel
+
+%description -n %oname-brasero
+This module contains a wrapper that makes Brasero available from Python.
 %endif
 
 %package -n %oname-totem
@@ -215,6 +230,13 @@ rm -rf %buildroot
 %defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/nautilusburn.so
 %doc examples/nautilusburn
+%endif
+
+%if %build_brasero
+%files -n %oname-brasero
+%defattr(755,root,root,755)
+%py_platsitedir/gtk-2.0/braseromedia.so
+%doc examples/braseromedia
 %endif
 
 %files -n %oname-totem
