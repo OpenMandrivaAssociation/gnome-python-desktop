@@ -36,6 +36,7 @@ BuildRequires: gnome-keyring-devel >= 0.5.0
 BuildRequires: gnome-desktop-devel
 BuildRequires: libgcrypt-devel
 BuildRequires: bug-buddy
+BuildRequires: libcanberra-devel
 BuildRequires: x11-server-xvfb
 Requires: gnome-python >= %gnomepython
 Conflicts: gnome-python-extras < 2.13.3
