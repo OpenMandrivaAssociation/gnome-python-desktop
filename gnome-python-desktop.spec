@@ -14,7 +14,7 @@
 
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
-Version: 2.27.1
+Version: 2.27.2
 Release: %mkrel 1
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 Patch0: gnome-python-desktop-2.25.1-fix-linkage.patch
@@ -236,6 +236,7 @@ rm -rf %buildroot
 %if %build_brasero
 %files -n %oname-brasero
 %defattr(755,root,root,755)
+%py_platsitedir/gtk-2.0/braseroburn.so
 %py_platsitedir/gtk-2.0/braseromedia.so
 %doc examples/braseromedia
 %endif
