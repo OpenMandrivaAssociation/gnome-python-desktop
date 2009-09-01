@@ -14,7 +14,7 @@
 
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
-Version: 2.27.2
+Version: 2.27.3
 Release: %mkrel 1
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 Patch0: gnome-python-desktop-2.25.1-fix-linkage.patch
@@ -171,14 +171,15 @@ available from Python.
 
 %prep
 %setup -q
-%patch0 -p0
-autoreconf -fi
+#%patch0 -p0
+#gw this fails in 2.27.3
+#autoreconf -fi
 
 %build
 %configure2_5x --enable-metacity
 %make
 
-#%check
+%check
 # Disabled due to http://bugzilla.gnome.org/show_bug.cgi?id=565593 :
 # check fails against Python 2.6 due to Python issue #4244 - AdamW
 # 2008/12
