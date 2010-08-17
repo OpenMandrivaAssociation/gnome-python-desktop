@@ -15,11 +15,11 @@
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
 Version: 2.31.1
-Release: %mkrel 1
+Release: %mkrel 2
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
-Patch0: gnome-python-desktop-2.25.1-fix-linkage.patch
 #gw link plparser wrapper with gtk until it was update for 2.29
 Patch1: gnome-python-desktop-2.29.1-totem-plparser-add-gtk.patch
+Patch2: gnome-python-desktop-2.31.1-new-evince.patch
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
 License: LGPLv2+ and GPLv2+
 Group: Development/GNOME and GTK+
@@ -164,7 +164,7 @@ Summary: Python bindings for the Evince document viewer
 Group: Development/GNOME and GTK+
 Requires: %name = %version
 Obsoletes: python-evince
-BuildRequires: libevince-devel >= 2.30.0
+BuildRequires: libevince-devel >= 2.31.90
 
 %description -n %oname-evince
 This module contains a wrapper that makes the Evince document viewer library
@@ -173,7 +173,7 @@ available from Python.
 
 %prep
 %setup -q
-%patch1 -p1
+%apply_patches
 autoreconf -fi
 
 %build
