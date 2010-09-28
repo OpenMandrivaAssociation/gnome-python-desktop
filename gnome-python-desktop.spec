@@ -14,12 +14,11 @@
 
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
-Version: 2.31.1
-Release: %mkrel 3
+Version: 2.32.0
+Release: %mkrel 1
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
 #gw link plparser wrapper with gtk until it was update for 2.29
 Patch1: gnome-python-desktop-2.29.1-totem-plparser-add-gtk.patch
-Patch2: gnome-python-desktop-2.31.1-new-evince.patch
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
 License: LGPLv2+ and GPLv2+
 Group: Development/GNOME and GTK+
