@@ -2,9 +2,9 @@
 %define build_evince 1
 %define build_nautilusburn 0
 %define build_brasero 0
-%if %mdvver <= 200900
-%define build_nautilusburn 1
-%else
+# the problem is brasero needs to be moved to contrib
+# abrt gui requires 
+%if %mdvver <= 201100
 %define build_brasero 1
 %endif
 
@@ -15,14 +15,14 @@
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
 Version: 2.32.0
-Release: %mkrel 3
-Source: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
-#gw link plparser wrapper with gtk until it was update for 2.29
-Patch1: gnome-python-desktop-2.29.1-totem-plparser-add-gtk.patch
-URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
+Release: 4
 License: LGPLv2+ and GPLv2+
 Group: Development/GNOME and GTK+
-BuildRoot: %{_tmppath}/%name-root
+URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
+Source0: ftp://ftp.gnome.org/pub/GNOME/sources/%name/%name-%{version}.tar.bz2
+#gw link plparser wrapper with gtk until it was update for 2.29
+Patch1: gnome-python-desktop-2.29.1-totem-plparser-add-gtk.patch
+
 BuildRequires: pygtk2.0-devel >= %pygtk
 BuildRequires: gnome-python-devel >= %gnomepython
 BuildRequires: gnome-python-gconf >= %gnomepython
@@ -66,7 +66,6 @@ Requires: %name = %version
 %description -n %oname-evolution
 This module contains a wrapper that allows Evolution extensions to be
 written in Python.
-
 
 %package -n %oname-gtksourceview
 Version: %{version}
@@ -176,7 +175,8 @@ available from Python.
 autoreconf -fi
 
 %build
-%configure2_5x --enable-metacity
+%configure2_5x \
+	--enable-metacity
 %make LIBS="`python-config --libs`"
 
 %check
@@ -190,11 +190,7 @@ rm -rf %{buildroot}
 %makeinstall_std
 find %{buildroot} -name '*.la' -exec rm {} \;
 
-%clean
-rm -rf %buildroot
-
 %files
-%defattr(644,root,root,755)
 %doc AUTHORS ChangeLog
 %doc examples/rsvg examples/keyring* examples/wnck*
 %defattr(755,root,root,755)
@@ -207,36 +203,30 @@ rm -rf %buildroot
 %py_platsitedir/gtk-2.0/bugbuddy* 
 
 %files -n %oname-applet
-%defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/gnome/applet.py*
 %py_platsitedir/gtk-2.0/gnomeapplet.so
 %py_platsitedir/gtk-2.0/gnomedesktop/
 %doc examples/applet/
 
 %files -n %oname-evolution
-%defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/evolution
 
 %files -n %oname-gtksourceview
-%defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/gtksourceview.so
 %doc examples/gtksourceview
 %doc %_datadir/gtk-doc/html/pygtksourceview
 
 %files -n %oname-gtop
-%defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/gtop.so
 
 %if %build_nautilusburn
 %files -n %oname-nautilus-burn
-%defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/nautilusburn.so
 %doc examples/nautilusburn
 %endif
 
 %if %build_brasero
 %files -n %oname-brasero
-%defattr(755,root,root,755)
 %doc examples/brasero*
 %py_platsitedir/gtk-2.0/braseroburn.so
 %py_platsitedir/gtk-2.0/braseromedia.so
@@ -244,21 +234,17 @@ rm -rf %buildroot
 %endif
 
 %files -n %oname-totem
-%defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/totem/
 
 %files -n %oname-mediaprofiles
-%defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/mediaprofiles.so
 %doc examples/mediaprofiles
 
 %files -n %oname-metacity
-%defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/metacity.so
 
 %if %{buildgnomeprint}
 %files -n %oname-gnomeprint
-%defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/gnomeprint/
 %doc examples/gnomeprint/
 %_datadir/gtk-doc/html/pygnomeprint*
@@ -266,6 +252,5 @@ rm -rf %buildroot
 
 %if %build_evince
 %files -n %oname-evince
-%defattr(755,root,root,755)
 %py_platsitedir/gtk-2.0/evince.so
 %endif
