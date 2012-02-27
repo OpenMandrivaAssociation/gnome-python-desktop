@@ -1,6 +1,5 @@
 %define buildgnomeprint 1
 %define build_evince 1
-%define build_nautilusburn 0
 %define build_brasero 0
 # the problem is brasero needs to be moved to contrib
 # abrt gui requires 
@@ -40,7 +39,9 @@ BuildRequires: libgcrypt-devel
 BuildRequires: bug-buddy
 BuildRequires: libcanberra-devel
 BuildRequires: x11-server-xvfb
-Requires: gnome-python >= %gnomepython
+
+Requires: gnome-desktop
+
 Conflicts: gnome-python-extras < 2.13.3
 Conflicts: gnome-python-applet < 2.32.0-5
 
@@ -51,7 +52,8 @@ GNOME Desktop modules.
 %package -n %{oname}-applet
 Summary: Python bindings for GNOME Panel applets
 Group: Development/GNOME and GTK+
-Requires: %{name} = %{version}
+Requires: gnome-panel2
+Requires: gnome-python >= %gnomepython
 Conflicts: gnome-python-desktop < 2.32.0-5
 
 %description -n %{oname}-applet
@@ -61,7 +63,7 @@ written in Python.
 %package -n %{oname}-evolution
 Summary: Python bindings for Evolution
 Group: Development/GNOME and GTK+
-Requires: %{name} = %{version}
+Requires: evolution-data-server2
 Conflicts: gnome-python-desktop < 2.32.0-5
 
 %description -n %{oname}-evolution
@@ -71,6 +73,7 @@ written in Python.
 %package -n %{oname}-gnomekeyring
 Summary: Python bindings for Gnome-keyring
 Group: Development/GNOME and GTK+
+Requires: gnome-keyring
 Conflicts: gnome-python-desktop < 2.32.0-5
 
 %description -n %{oname}-gnomekeyring
@@ -79,6 +82,7 @@ This module contains a wrapper that makes Gnome-keyring available from Python.
 %package -n %{oname}-gtksourceview
 Summary: Python bindings for Gtksourceview
 Group: Development/GNOME and GTK+
+Requires: gtksourceview1
 Requires: %{oname}-gnomeprint = %{version}
 Conflicts: gnome-python-desktop < 2.32.0-5
 
@@ -88,28 +92,17 @@ This module contains a wrapper that makes Gtksourceview available from Python.
 %package -n %{oname}-gtop
 Summary: Python bindings for Gtop
 Group: Development/GNOME and GTK+
-Requires: %{name} = %{version}
+Requires: libgtop2
 BuildRequires: libgtop2.0-devel >= 2.13
 
 %description -n %{oname}-gtop
 This module contains a wrapper that makes Gtop available from Python.
 
-%if %build_nautilusburn
-%package -n %{oname}-nautilus-burn
-Summary: Python bindings for Nautilus-burn
-Group: Development/GNOME and GTK+
-Requires: %{name} = %{version}
-BuildRequires: libnautilus-burn-devel >= 2.15.3
-
-%description -n %{oname}-nautilus-burn
-This module contains a wrapper that makes Nautilus-burn available from Python.
-%endif
-
 %if %build_brasero
 %package -n %{oname}-brasero
 Summary: Python bindings for Brasero
 Group: Development/GNOME and GTK+
-Requires: %{name} = %{version}
+Requires: brasero
 BuildRequires: brasero-devel
 
 %description -n %{oname}-brasero
@@ -119,7 +112,6 @@ This module contains a wrapper that makes Brasero available from Python.
 %package -n %{oname}-totem
 Summary: Python bindings for the Totem playlist parser
 Group: Development/GNOME and GTK+
-Requires: %{name} = %{version}
 BuildRequires: pkgconfig(totem-plparser)
 
 %description -n %{oname}-totem
@@ -129,7 +121,7 @@ available from Python.
 %package -n %{oname}-mediaprofiles
 Summary: Python bindings for the GNOME media profiles
 Group: Development/GNOME and GTK+
-Requires: %{name} = %{version}
+Requires: gnome-media
 Requires: gnome-python-gconf >= %gnomepython
 Conflicts: gnome-python-desktop < 2.32.0-5
 BuildRequires: pkgconfig(gnome-media-profiles)
@@ -141,7 +133,7 @@ available from Python.
 %package -n %{oname}-metacity
 Summary: Python bindings for the Metacity window manager
 Group: Development/GNOME and GTK+
-Requires: %{name} = %{version}
+Requires: metacity
 Conflicts: gnome-python-desktop < 2.32.0-5
 BuildRequires: pkgconfig(libmetacity-private)
 
@@ -153,6 +145,8 @@ available from Python.
 %package -n %{oname}-gnomeprint
 Summary: Python bindings for interacting with gnomeprint and gnomeprintui
 Group: Development/GNOME and GTK+
+Requires: libgnomeprintui
+Requires: gnome-python-canvas
 Conflicts: gnome-python-desktop < 2.32.0-5
 BuildRequires: libgnomeprintui-devel >= 2.8.0
 
@@ -165,7 +159,7 @@ gnomeprintui via python.
 %package -n %{oname}-evince
 Summary: Python bindings for the Evince document viewer
 Group: Development/GNOME and GTK+
-Requires: %{name} = %{version}
+Requires: evince
 Conflicts: gnome-python-desktop < 2.32.0-5
 Obsoletes: python-evince
 BuildRequires: evince-devel >= 2.31.90
@@ -178,6 +172,7 @@ available from Python.
 %package -n %{oname}-rsvg
 Summary: Python bindings for Rsvg
 Group: Development/GNOME and GTK+
+Requires: librsvg2
 Conflicts: gnome-python-desktop < 2.32.0-5
 
 %description -n %{oname}-rsvg
@@ -186,6 +181,7 @@ This module contains a wrapper that makes Rsvg available from Python.
 %package -n %{oname}-wnck
 Summary: Python-wnck bindings
 Group: Development/GNOME and GTK+
+Requires: libwnck
 Conflicts: gnome-python-desktop < 2.32.0-5
 
 %description -n %{oname}-wnck
@@ -227,7 +223,6 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 %dir %{_datadir}/pygtk/2.0/defs
 %{py_platsitedir}/gtk-2.0/gnomedesktop/
 %{py_platsitedir}/gtk-2.0/bugbuddy* 
-%{_datadir}/pygtk/2.0/defs/art.defs
 %{_datadir}/pygtk/2.0/defs/_gnomedesktop.defs
 
 %files -n %{oname}-applet
@@ -254,12 +249,6 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 %files -n %{oname}-gtop
 %{py_platsitedir}/gtk-2.0/gtop.so
 
-%if %build_nautilusburn
-%files -n %{oname}-nautilus-burn
-%{py_platsitedir}/gtk-2.0/nautilusburn.so
-%doc examples/nautilusburn
-%endif
-
 %if %build_brasero
 %files -n %{oname}-brasero
 %doc examples/brasero*
@@ -284,6 +273,7 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 %files -n %{oname}-gnomeprint
 %doc examples/gnomeprint/
 %{py_platsitedir}/gtk-2.0/gnomeprint/
+%{_datadir}/pygtk/2.0/defs/art.defs
 %{_datadir}/pygtk/2.0/defs/print.defs
 %{_datadir}/pygtk/2.0/defs/printui.defs
 %{_datadir}/gtk-doc/html/pygnomeprint*
