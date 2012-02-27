@@ -227,6 +227,8 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 %dir %{_datadir}/pygtk/2.0/defs
 %{py_platsitedir}/gtk-2.0/gnomedesktop/
 %{py_platsitedir}/gtk-2.0/bugbuddy* 
+%{_datadir}/pygtk/2.0/defs/art.defs
+%{_datadir}/pygtk/2.0/defs/_gnomedesktop.defs
 
 %files -n %{oname}-applet
 %doc examples/applet/
