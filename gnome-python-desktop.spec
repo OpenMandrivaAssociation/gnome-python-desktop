@@ -1,10 +1,15 @@
-%define buildgnomeprint 1
-%define build_evince 1
+# evince, brasero and mediaprofiles are disabled because these things have
+# been ported to GTK+3. It's not practical to mix GTK+2 and GTK+3 bindings
+# in gnome-python2-desktop, so for now we'll just have to disable the GTK+3
+# stuff. - AdamW 2010/07
 %define build_brasero 0
-# the problem is brasero needs to be moved to contrib
-# abrt gui requires 
+%define build_evince 0
+%define build_gnomeprint 1
+%define build_mediaprofiles 0
 %if %mdvver <= 201100
 %define build_brasero 1
+%define build_evince 1
+%define build_mediaprofiles 1
 %endif
 
 %define pygtk 2.10.3
@@ -14,7 +19,7 @@
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
 Version: 2.32.0
-Release: 5
+Release: 6
 License: LGPLv2+ and GPLv2+
 Group: Development/GNOME and GTK+
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
@@ -98,7 +103,7 @@ BuildRequires: libgtop2.0-devel >= 2.13
 %description -n %{oname}-gtop
 This module contains a wrapper that makes Gtop available from Python.
 
-%if %build_brasero
+%if %{build_brasero}
 %package -n %{oname}-brasero
 Summary: Python bindings for Brasero
 Group: Development/GNOME and GTK+
@@ -118,6 +123,7 @@ BuildRequires: pkgconfig(totem-plparser)
 This module contains a wrapper that makes the Totem playlist parser
 available from Python.
 
+%if %{build_mediaprofiles}
 %package -n %{oname}-mediaprofiles
 Summary: Python bindings for the GNOME media profiles
 Group: Development/GNOME and GTK+
@@ -129,6 +135,7 @@ BuildRequires: pkgconfig(gnome-media-profiles)
 %description -n %{oname}-mediaprofiles
 This module contains a wrapper that makes the GNOME media profiles library
 available from Python.
+%endif
 
 %package -n %{oname}-metacity
 Summary: Python bindings for the Metacity window manager
@@ -141,7 +148,7 @@ BuildRequires: pkgconfig(libmetacity-private)
 This module contains a wrapper that makes the Metacity window manager library
 available from Python.
 
-%if %{buildgnomeprint}
+%if %{build_gnomeprint}
 %package -n %{oname}-gnomeprint
 Summary: Python bindings for interacting with gnomeprint and gnomeprintui
 Group: Development/GNOME and GTK+
@@ -155,7 +162,7 @@ This module contains a wrapper that allows the use of gnomeprint and
 gnomeprintui via python.
 %endif
 
-%if %build_evince
+%if %{build_evince}
 %package -n %{oname}-evince
 Summary: Python bindings for the Evince document viewer
 Group: Development/GNOME and GTK+
@@ -249,7 +256,7 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 %files -n %{oname}-gtop
 %{py_platsitedir}/gtk-2.0/gtop.so
 
-%if %build_brasero
+%if %{build_brasero}
 %files -n %{oname}-brasero
 %doc examples/brasero*
 %{py_platsitedir}/gtk-2.0/braseroburn.so
@@ -260,16 +267,18 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 %files -n %{oname}-totem
 %{py_platsitedir}/gtk-2.0/totem/
 
+%if %{build_mediaprofiles}
 %files -n %{oname}-mediaprofiles
 %doc examples/mediaprofiles
 %{py_platsitedir}/gtk-2.0/mediaprofiles.so
 %{_datadir}/pygtk/2.0/defs/mediaprofiles.defs
+%endif
 
 %files -n %{oname}-metacity
 %{py_platsitedir}/gtk-2.0/metacity.so
 %{_datadir}/pygtk/2.0/defs/metacity.defs
 
-%if %{buildgnomeprint}
+%if %{build_gnomeprint}
 %files -n %{oname}-gnomeprint
 %doc examples/gnomeprint/
 %{py_platsitedir}/gtk-2.0/gnomeprint/
@@ -279,7 +288,7 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 %{_datadir}/gtk-doc/html/pygnomeprint*
 %endif
 
-%if %build_evince
+%if %{build_evince}
 %files -n %{oname}-evince
 %{py_platsitedir}/gtk-2.0/evince.so
 %{_datadir}/pygtk/2.0/defs/evince.defs
