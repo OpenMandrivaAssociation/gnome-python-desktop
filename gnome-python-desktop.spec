@@ -9,7 +9,7 @@
 %if %mdvver <= 201100
 %define build_brasero 1
 %define build_evince 1
-%define build_mediaprofiles 1
+%define build_mediaprofiles 0
 %endif
 
 %define pygtk 2.10.3
@@ -19,13 +19,15 @@
 Summary: GNOME Desktop bindings for Python
 Name: gnome-python-desktop
 Version: 2.32.0
-Release: 6
+Release: 7
 License: LGPLv2+ and GPLv2+
 Group: Development/GNOME and GTK+
 URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
 Source0: ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
 #gw link plparser wrapper with gtk until it was update for 2.29
 Patch1: gnome-python-desktop-2.29.1-totem-plparser-add-gtk.patch
+# https://bugzilla.gnome.org/show_bug.cgi?id=672016
+Patch2: gnome-python-desktop-2.32.0-metacity-build.patch
 
 BuildRequires: pygtk2.0-devel >= %pygtk
 BuildRequires: gnome-python-devel >= %gnomepython
@@ -33,37 +35,23 @@ BuildRequires: gnome-python-gconf >= %gnomepython
 BuildRequires: python-devel >= 2.2
 BuildRequires: libgnomeui2-devel >= 2.0.0
 BuildRequires: gtksourceview1-devel >= 1.1.90
-BuildRequires: pkgconfig(libpanelapplet-2.0)
 # let gotz keep all his gnome2 stuff intact in main
-BuildRequires: %{_lib}edataserver2-devel
+##BuildRequires: %{_lib}edataserver2-devel
+BuildRequires:	evolution-data-server-devel
 BuildRequires: libwnck-devel >= 2.19.3
-BuildRequires: librsvg-devel
 BuildRequires: libgnome-keyring-devel >= 0.5.0
 BuildRequires: gnome-desktop-devel
 BuildRequires: libgcrypt-devel
-BuildRequires: bug-buddy
 BuildRequires: libcanberra-devel
 BuildRequires: x11-server-xvfb
 
 Requires: gnome-desktop
 
 Conflicts: gnome-python-extras < 2.13.3
-Conflicts: gnome-python-applet < 2.32.0-5
 
 %description
 The gnome-python-desktop package contains the Python bindings for the
 GNOME Desktop modules.
-
-%package -n %{oname}-applet
-Summary: Python bindings for GNOME Panel applets
-Group: Development/GNOME and GTK+
-Requires: gnome-panel2
-Requires: gnome-python >= %gnomepython
-Conflicts: gnome-python-desktop < 2.32.0-5
-
-%description -n %{oname}-applet
-This module contains a wrapper that allows GNOME Panel applets to be
-written in Python.
 
 %package -n %{oname}-evolution
 Summary: Python bindings for Evolution
@@ -176,15 +164,6 @@ This module contains a wrapper that makes the Evince document viewer library
 available from Python.
 %endif
 
-%package -n %{oname}-rsvg
-Summary: Python bindings for Rsvg
-Group: Development/GNOME and GTK+
-Requires: librsvg2
-Conflicts: gnome-python-desktop < 2.32.0-5
-
-%description -n %{oname}-rsvg
-This module contains a wrapper that makes Rsvg available from Python.
-
 %package -n %{oname}-wnck
 Summary: Python-wnck bindings
 Group: Development/GNOME and GTK+
@@ -211,7 +190,7 @@ autoreconf -fi
 
 %build
 %configure2_5x \
-	--enable-metacity
+	--enable-metacity --enable-metacity --disable-evince --disable-braseromedia --disable-braseroburn --disable-mediaprofiles --disable-applet
 %make LIBS="`python-config --libs`"
 
 %check
@@ -231,12 +210,6 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 %{py_platsitedir}/gtk-2.0/gnomedesktop/
 %{py_platsitedir}/gtk-2.0/bugbuddy* 
 %{_datadir}/pygtk/2.0/defs/_gnomedesktop.defs
-
-%files -n %{oname}-applet
-%doc examples/applet/
-%{py_platsitedir}/gtk-2.0/gnome/applet.py*
-%{py_platsitedir}/gtk-2.0/gnomeapplet.so
-%{_datadir}/pygtk/2.0/defs/applet.defs
 
 %files -n %{oname}-evolution
 %{py_platsitedir}/gtk-2.0/evolution
@@ -293,10 +266,6 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 %{py_platsitedir}/gtk-2.0/evince.so
 %{_datadir}/pygtk/2.0/defs/evince.defs
 %endif
-
-%files -n %{oname}-rsvg
-%doc examples/rsvg
-%{py_platsitedir}/gtk-2.0/rsvg.so
 
 %files -n %{oname}-wnck
 %doc examples/wnck*
