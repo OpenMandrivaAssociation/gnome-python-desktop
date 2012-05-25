@@ -37,7 +37,6 @@ BuildRequires: libgnomeui2-devel >= 2.0.0
 BuildRequires: gtksourceview1-devel >= 1.1.90
 # let gotz keep all his gnome2 stuff intact in main
 ##BuildRequires: %{_lib}edataserver2-devel
-BuildRequires:	evolution-data-server-devel
 BuildRequires: libwnck-devel >= 2.19.3
 BuildRequires: libgnome-keyring-devel >= 0.5.0
 BuildRequires: gnome-desktop-devel
@@ -52,16 +51,6 @@ Conflicts: gnome-python-extras < 2.13.3
 %description
 The gnome-python-desktop package contains the Python bindings for the
 GNOME Desktop modules.
-
-%package -n %{oname}-evolution
-Summary: Python bindings for Evolution
-Group: Development/GNOME and GTK+
-Requires: evolution-data-server2
-Conflicts: gnome-python-desktop < 2.32.0-5
-
-%description -n %{oname}-evolution
-This module contains a wrapper that allows Evolution extensions to be
-written in Python.
 
 %package -n %{oname}-gnomekeyring
 Summary: Python bindings for Gnome-keyring
@@ -210,10 +199,6 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 %{py_platsitedir}/gtk-2.0/gnomedesktop/
 %{py_platsitedir}/gtk-2.0/bugbuddy* 
 %{_datadir}/pygtk/2.0/defs/_gnomedesktop.defs
-
-%files -n %{oname}-evolution
-%{py_platsitedir}/gtk-2.0/evolution
-%{_datadir}/pygtk/2.0/defs/ebook.defs
 
 %files -n %{oname}-gnomekeyring
 %doc examples/keyring*
