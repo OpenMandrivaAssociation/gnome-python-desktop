@@ -1,0 +1,20 @@
+diff -p -up gnome-python-desktop-2.29.1/totem/Makefile.am.linking gnome-python-desktop-2.29.1/totem/Makefile.am
+--- gnome-python-desktop-2.29.1/totem/Makefile.am.linking	2009-11-28 20:16:03.000000000 +0100
++++ gnome-python-desktop-2.29.1/totem/Makefile.am	2010-01-27 16:25:55.000000000 +0100
+@@ -13,11 +13,14 @@ plparser.c: plparser.defs plparser.overr
+ 
+ plparser_la_CFLAGS =				\
+ 	$(TOTEM_PLPARSER_CFLAGS)		\
+-	$(PYTHON_INCLUDES)
++	$(PYTHON_INCLUDES)			\
++	$(GTK_CFLAGS)
++
+ 
+ plparser_la_LDFLAGS = -module -avoid-version  -export-symbols-regex initplparser
+ plparser_la_LIBADD =				\
+-	$(TOTEM_PLPARSER_LIBS)
++	$(TOTEM_PLPARSER_LIBS)			\
++	$(GTK_LIBS)
+ 
+ 
+ .defs.c:
