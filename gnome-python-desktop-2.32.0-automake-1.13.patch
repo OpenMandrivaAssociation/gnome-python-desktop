@@ -1,0 +1,12 @@
+diff -up gnome-python-desktop-2.32.0/configure.ac.automake-1_13 gnome-python-desktop-2.32.0/configure.ac
+--- gnome-python-desktop-2.32.0/configure.ac.automake-1_13	2010-09-28 19:34:57.000000000 +0200
++++ gnome-python-desktop-2.32.0/configure.ac	2013-01-05 14:24:06.276049013 +0100
+@@ -36,7 +36,7 @@ m4_define(libebook_required_version,
+ AC_INIT(gnome-python-desktop, gnome_python_desktop_version,
+         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-python])
+ dnl AC_CONFIG_SRCDIR([gnome/uimodule.c])
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ 
+ AM_INIT_AUTOMAKE
+ 

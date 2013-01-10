@@ -11,85 +11,86 @@
 %define gnomepython 2.10.0
 %define oname gnome-python
 
-Summary: GNOME Desktop bindings for Python
-Name: gnome-python-desktop
-Version: 2.32.0
-Release: 8
-License: LGPLv2+ and GPLv2+
-Group: Development/GNOME and GTK+
-URL: ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
-Source0: ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
+Summary:	GNOME Desktop bindings for Python
+Name:		gnome-python-desktop
+Version:	2.32.0
+Release:	8
+License:	LGPLv2+ and GPLv2+
+Group:		Development/GNOME and GTK+
+URL:		ftp://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
+Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
 #gw link plparser wrapper with gtk until it was update for 2.29
-Patch1: gnome-python-desktop-2.29.1-totem-plparser-add-gtk.patch
+Patch1:		gnome-python-desktop-2.29.1-totem-plparser-add-gtk.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=672016
-Patch2: gnome-python-desktop-2.32.0-metacity-build.patch
+Patch2:		gnome-python-desktop-2.32.0-metacity-build.patch
+Patch3:		gnome-python-desktop-2.32.0-automake-1.13.patch
 
-BuildRequires: pygtk2.0-devel >= %pygtk
-BuildRequires: gnome-python-devel >= %gnomepython
-BuildRequires: gnome-python-gconf >= %gnomepython
-BuildRequires: python-devel >= 2.2
-BuildRequires: libgnomeui2-devel >= 2.0.0
-BuildRequires: gtksourceview1-devel >= 1.1.90
+BuildRequires:	pygtk2.0-devel >= %pygtk
+BuildRequires:	gnome-python-devel >= %gnomepython
+BuildRequires:	gnome-python-gconf >= %gnomepython
+BuildRequires:	python-devel >= 2.2
+BuildRequires:	libgnomeui2-devel >= 2.0.0
+BuildRequires:	gtksourceview1-devel >= 1.1.90
 # let gotz keep all his gnome2 stuff intact in main
 ##BuildRequires: %{_lib}edataserver2-devel
-BuildRequires: pkgconfig(libwnck-1.0)
-BuildRequires: libgnome-keyring-devel >= 0.5.0
-BuildRequires: gnome-desktop-devel
-BuildRequires: libgcrypt-devel
-BuildRequires: libcanberra-devel
-BuildRequires: x11-server-xvfb
+BuildRequires:	pkgconfig(libwnck-1.0)
+BuildRequires:	libgnome-keyring-devel >= 0.5.0
+BuildRequires:	gnome-desktop-devel
+BuildRequires:	libgcrypt-devel
+BuildRequires:	libcanberra-devel
+BuildRequires:	x11-server-xvfb
+#(tpg) do not require this :)
+#Requires: gnome-desktop
 
-Requires: gnome-desktop
-
-Conflicts: gnome-python-extras < 2.13.3
+Conflicts:	gnome-python-extras < 2.13.3
 
 %description
 The gnome-python-desktop package contains the Python bindings for the
 GNOME Desktop modules.
 
 %package -n %{oname}-gnomekeyring
-Summary: Python bindings for Gnome-keyring
-Group: Development/GNOME and GTK+
-Requires: gnome-keyring
-Conflicts: gnome-python-desktop < 2.32.0-5
+Summary:	Python bindings for Gnome-keyring
+Group:		Development/GNOME and GTK+
+Requires:	gnome-keyring
+Conflicts:	gnome-python-desktop < 2.32.0-5
 
 %description -n %{oname}-gnomekeyring
 This module contains a wrapper that makes Gnome-keyring available from Python.
 
 %package -n %{oname}-gtksourceview
-Summary: Python bindings for Gtksourceview
-Group: Development/GNOME and GTK+
-Requires: gtksourceview1
-Requires: %{oname}-gnomeprint = %{version}
-Conflicts: gnome-python-desktop < 2.32.0-5
+Summary:	Python bindings for Gtksourceview
+Group:		Development/GNOME and GTK+
+Requires:	gtksourceview1
+Requires:	%{oname}-gnomeprint = %{version}
+Conflicts:	gnome-python-desktop < 2.32.0-5
 
 %description -n %{oname}-gtksourceview
 This module contains a wrapper that makes Gtksourceview available from Python.
 
 %package -n %{oname}-gtop
-Summary: Python bindings for Gtop
-Group: Development/GNOME and GTK+
-Requires: libgtop2
-BuildRequires: libgtop2.0-devel >= 2.13
+Summary:	Python bindings for Gtop
+Group:		Development/GNOME and GTK+
+Requires:	libgtop2
+BuildRequires:	libgtop2.0-devel >= 2.13
 
 %description -n %{oname}-gtop
 This module contains a wrapper that makes Gtop available from Python.
 
 %if %{build_brasero}
 %package -n %{oname}-brasero
-Summary: Python bindings for Brasero
-Group: Development/GNOME and GTK+
-Requires: brasero
-BuildRequires: brasero-devel
+Summary:	Python bindings for Brasero
+Group:		Development/GNOME and GTK+
+Requires:	brasero
+BuildRequires:	brasero-devel
 
 %description -n %{oname}-brasero
 This module contains a wrapper that makes Brasero available from Python.
 %endif
 
 %package -n %{oname}-totem
-Summary: Python bindings for the Totem playlist parser
-Group: Development/GNOME and GTK+
-BuildRequires: pkgconfig(totem-plparser)
+Summary:	Python bindings for the Totem playlist parser
+Group:		Development/GNOME and GTK+
+BuildRequires:	pkgconfig(totem-plparser)
 
 %description -n %{oname}-totem
 This module contains a wrapper that makes the Totem playlist parser
@@ -97,12 +98,12 @@ available from Python.
 
 %if %{build_mediaprofiles}
 %package -n %{oname}-mediaprofiles
-Summary: Python bindings for the GNOME media profiles
-Group: Development/GNOME and GTK+
-Requires: gnome-media
-Requires: gnome-python-gconf >= %gnomepython
-Conflicts: gnome-python-desktop < 2.32.0-5
-BuildRequires: pkgconfig(gnome-media-profiles)
+Summary:	Python bindings for the GNOME media profiles
+Group:		Development/GNOME and GTK+
+Requires:	gnome-media
+Requires:	gnome-python-gconf >= %gnomepython
+Conflicts:	gnome-python-desktop < 2.32.0-5
+BuildRequires:	pkgconfig(gnome-media-profiles)
 
 %description -n %{oname}-mediaprofiles
 This module contains a wrapper that makes the GNOME media profiles library
@@ -110,11 +111,11 @@ available from Python.
 %endif
 
 %package -n %{oname}-metacity
-Summary: Python bindings for the Metacity window manager
-Group: Development/GNOME and GTK+
-Requires: metacity
-Conflicts: gnome-python-desktop < 2.32.0-5
-BuildRequires: pkgconfig(libmetacity-private)
+Summary:	Python bindings for the Metacity window manager
+Group:		Development/GNOME and GTK+
+Requires:	metacity
+Conflicts:	gnome-python-desktop < 2.32.0-5
+BuildRequires:	pkgconfig(libmetacity-private)
 
 %description -n %{oname}-metacity
 This module contains a wrapper that makes the Metacity window manager library
@@ -122,12 +123,12 @@ available from Python.
 
 %if %{build_gnomeprint}
 %package -n %{oname}-gnomeprint
-Summary: Python bindings for interacting with gnomeprint and gnomeprintui
-Group: Development/GNOME and GTK+
-Requires: libgnomeprintui
-Requires: gnome-python-canvas
-Conflicts: gnome-python-desktop < 2.32.0-5
-BuildRequires: libgnomeprintui-devel >= 2.8.0
+Summary:	Python bindings for interacting with gnomeprint and gnomeprintui
+Group:		Development/GNOME and GTK+
+Requires:	libgnomeprintui
+Requires:	gnome-python-canvas
+Conflicts:	gnome-python-desktop < 2.32.0-5
+BuildRequires:	libgnomeprintui-devel >= 2.8.0
 
 %description -n %{oname}-gnomeprint
 This module contains a wrapper that allows the use of gnomeprint and
@@ -136,12 +137,12 @@ gnomeprintui via python.
 
 %if %{build_evince}
 %package -n %{oname}-evince
-Summary: Python bindings for the Evince document viewer
-Group: Development/GNOME and GTK+
-Requires: evince
-Conflicts: gnome-python-desktop < 2.32.0-5
-Obsoletes: python-evince
-BuildRequires: evince-devel >= 2.31.90
+Summary:	Python bindings for the Evince document viewer
+Group:		Development/GNOME and GTK+
+Requires:	evince
+Conflicts:	gnome-python-desktop < 2.32.0-5
+Obsoletes:	python-evince
+BuildRequires:	evince-devel >= 2.31.90
 
 %description -n %{oname}-evince
 This module contains a wrapper that makes the Evince document viewer library
@@ -149,20 +150,20 @@ available from Python.
 %endif
 
 %package -n %{oname}-wnck
-Summary: Python-wnck bindings
-Group: Development/GNOME and GTK+
-Requires: libwnck
-Conflicts: gnome-python-desktop < 2.32.0-5
+Summary:	Python-wnck bindings
+Group:		Development/GNOME and GTK+
+Requires:	libwnck
+Conflicts:	gnome-python-desktop < 2.32.0-5
 
 %description -n %{oname}-wnck
 This package contains a module that allows communication with the Window
 Manager using the EWMH specification from Python applications.
 
 %package devel
-Summary: Pkgconfig file for %{name}
-Group: Development/GNOME and GTK+
-Requires: %{name} = %{version}
-Conflicts: gnome-python-desktop < 2.32.0-5
+Summary:	Pkgconfig file for %{name}
+Group:		Development/GNOME and GTK+
+Requires:	%{name} = %{version}-%{release}
+Conflicts:	gnome-python-desktop < 2.32.0-5
 
 %description devel
 This package contains pkgconfig file for %{name}.
@@ -174,7 +175,14 @@ autoreconf -fi
 
 %build
 %configure2_5x \
-	--enable-metacity --enable-metacity --disable-evince --disable-braseromedia --disable-braseroburn --disable-mediaprofiles --disable-applet
+	--enable-metacity \
+	--disable-evince \
+	--disable-braseromedia \
+	--disable-braseroburn \
+	--disable-mediaprofiles \
+	--disable-gnomedesktop \
+	--disable-applet
+
 %make LIBS="`python-config --libs`"
 
 %check
@@ -184,7 +192,6 @@ autoreconf -fi
 #xvfb-run make check
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 find %{buildroot} -name '*.la' -exec rm {} \;
 
@@ -192,7 +199,7 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 %doc AUTHORS ChangeLog
 %dir %{_datadir}/pygtk/2.0/defs
 %{py_platsitedir}/gtk-2.0/gnomedesktop/
-%{py_platsitedir}/gtk-2.0/bugbuddy* 
+%{py_platsitedir}/gtk-2.0/bugbuddy*
 %{_datadir}/pygtk/2.0/defs/_gnomedesktop.defs
 
 %files -n %{oname}-gnomekeyring
