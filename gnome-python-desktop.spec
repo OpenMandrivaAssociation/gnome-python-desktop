@@ -198,9 +198,9 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 %files
 %doc AUTHORS ChangeLog
 %dir %{_datadir}/pygtk/2.0/defs
-%{py_platsitedir}/gtk-2.0/gnomedesktop/
+#%{py_platsitedir}/gtk-2.0/gnomedesktop/
 %{py_platsitedir}/gtk-2.0/bugbuddy*
-%{_datadir}/pygtk/2.0/defs/_gnomedesktop.defs
+#%{_datadir}/pygtk/2.0/defs/_gnomedesktop.defs
 
 %files -n %{oname}-gnomekeyring
 %doc examples/keyring*
