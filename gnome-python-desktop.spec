@@ -27,6 +27,11 @@ Patch1:		gnome-python-desktop-2.29.1-totem-plparser-add-gtk.patch
 Patch2:		gnome-python-desktop-2.32.0-metacity-build.patch
 Patch3:		gnome-python-desktop-2.32.0-automake-1.13.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	gnome-python-gconf >= %{gnomepython}
 BuildRequires:	x11-server-xvfb
 BuildRequires:	pkgconfig(gnome-desktop-2.0)
